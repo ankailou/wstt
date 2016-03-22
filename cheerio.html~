@@ -2,13 +2,8 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>Web Scraping</title>
+    <title>Cheerio</title>
     <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-      body {
-        padding-top: 80px;
-      }
-    </style>
   </head>
 
   <body>
@@ -29,8 +24,8 @@
             <li><a href="index.html">Home</a></li>
             <li><a href="scrapy.html">Scrapy</a></li>
             <li><a href="urllib.html">Urllib2</a></li>
-            <li class="active"><a href="#">Nokogiri</a></li>
-            <li><a href="cheerio.html">Cheerio</a></li>
+            <li><a href="nokogiri.html">Nokogiri</a></li>
+            <li class="active"><a href="#">Cheerio</a></li>
           </ul>
         </div> <!--/.nav-collapse -->
       </div> <!--/container-->
@@ -41,7 +36,7 @@
 <!--unless ofcourse you can make the site not look like shit, then be my guest-->
     <div class="container">
       <div class="jumbotron">
-        <h1>PUT YOUR TECHNOLOGY NAME HERE</h1>
+        <h1>Cheerio</h1>
         <h3>cool thing 1</h3>
         <h3>cool thing 2</h3>
         <h3>yea idk dont have to have 3 things</h3>
@@ -77,7 +72,7 @@ I am last line
     </div> <!--/container-->
 <!--YOU PUT YOUR STUFF ABOVE HERE-->
 <!--no srs stop coding you did it... ur you done... gj now email this back to me-->
-    
+
     <script src="bower_components/jquery/dist/jquery.js"></script>
     <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
   </body>

@@ -4,11 +4,6 @@
     <meta charset="utf-8">
     <title>Web Scraping</title>
     <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-      body {
-        padding-top: 80px;
-      }
-    </style>
   </head>
 
   <body>
@@ -28,8 +23,8 @@
           <ul class="nav navbar-nav">
             <li><a href="index.html">Home</a></li>
             <li><a href="scrapy.html">Scrapy</a></li>
-            <li><a href="urllib.html">Urllib2</a></li>
-            <li class="active"><a href="#">Nokogiri</a></li>
+            <li  class="active"><a href="#">Urllib2</a></li>
+            <li><a href="nokogiri.html">Nokogiri</a></li>
             <li><a href="cheerio.html">Cheerio</a></li>
           </ul>
         </div> <!--/.nav-collapse -->

@@ -50,9 +50,6 @@
       </div> <!--/container-->
     </nav> <!--/navbar-->
 
-<!--YOU PUT YOUR STUFF BELOW HERE-->
-<!--NO SRS READ THE COMMENT, NO NEED TO TOUCH ANYWHERE ELSE-->
-<!--unless ofcourse you can make the site not look like shit, then be my guest-->
     <div class="container">
       <div class="jumbotron">
         <h1 class="text-center">Cheerio</h1>
@@ -71,15 +68,63 @@
       <hr>
       <div class="panel panel-default">
         <div class="panel-heading">
-          <h3 class="panel-title">Deemo... I mean demo</h3>
+          <h3 class="panel-title text-center">Demo</h3>
         </div> <!--/panel head-->
         <div class="panel-body">
+          <p>As Cheerio is a library of NodeJS this demo will assume that you already have NodeJS installed.  If you do not visit the <a href="https://nodejs.org/en/">Node Homepage</a> (which can also be found in the resources section) to learn how to install it on your operating system.<p>
+          <p>With NodeJS installed it is now required to install both the request and the cheerio libraries.  This is acomplished with npm (node package mangaer) that comes with NodeJS.  Use the following two commands from the command line.</p>
           <pre>
-I am line 1
-  Deemo goes here
-    Super important note for html scrubs you must escape your angle brackets (&lt; and &gt;) using those two tags i just ussed in the source
-I am last line
+npm install request
+npm install cheeriof
           </pre>
+          <p>Now that everything is installed and ready to go create a NodeJS application and use the following code to start scraping!  This code will scrape the information out of the Wikipedia infobox and print it to your console.</p>
+          <pre>
+var cheerio = require('cheerio');
+var request = require('request');
+
+var header = []
+var data = []
+
+//Request a wikipedia page of your choosing
+request({
+    method: 'GET',
+    url: 'https://en.wikipedia.org/wiki/Node.js'
+}, function(err, response, body) {
+    //Error check to make sure you got the page
+    if (err) return console.error(err);
+    
+    //Load the page into cheerio
+    $ = cheerio.load(body);
+
+    //Select the table header from each table row
+    $('.infobox tr th').each(function(){
+        //Push the table header into our header array
+        header.push($(this).text());
+        //Push the next element (table data) into our data array
+        data.push($(this).next().text());
+    });
+
+    //Print out each header with its information on the command line
+    for (i = 0; i &lt; header.length; i++) {
+        console.log(header[i] + ' = ' + data[i]);
+    }
+});
+          </pre>
+          <p>An important thing to notice is that we explicitly selected the table with class infobox and its children that we wanted using <code>$(.infobox tr th)</code>.  We were able to do this because we can examine the DOM on the Wikipedia pages using a broswer inspector and know exactly what type of elements the static page has when loaded into Cheerio.</p>
+          <p>The output of this demo is:</p>
+          <pre>
+Original author(s) = Ryan Dahl
+Developer(s) = Node.js Developers, Joyent, GitHub Contributors
+Initial release = May 27, 2009 (2009-05-27)[1]
+Stable release = 5.9.0 / March 16, 2016 (2016-03-16)[2]
+Development status = Active
+Written in = C, C++, JavaScript
+Operating system = OS X, Linux, Solaris, FreeBSD, OpenBSD, Microsoft Windows (older versions require Cygwin), webOS, NonStop OS
+Type = Event-driven networking
+License = MIT
+Website = nodejs.org
+          </pre>
+          <p>This is a simple example that shows how you can extract information by web scraping with Cheerio.  You could imagine automating this to scrape a large number of Wikipedia articles and storing the information in memory (or even a database) on the server.</p>
         </div> <!--/panel body-->
       </div> <!--/panel-->
       <hr>

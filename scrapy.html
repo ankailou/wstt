@@ -55,40 +55,105 @@
 <!--unless ofcourse you can make the site not look like shit, then be my guest-->
     <div class="container">
       <div class="jumbotron">
-        <h1 class="text-center">PUT YOUR TECHNOLOGY NAME HERE</h1>
+        <h1 class="text-centered">Scrapy</h1>
         <ul class="custom-bullet">
-          <li>cool thing 1</li>
-          <li>cool thing 2</li>
-          <li>yea idk dont have to have 3 things</li>
+          <li>Full framework for writing web crawlers</li>
+          <li>Written in Python</li>
+          <li>Allows for customization of how pages are parsed</li>
         </ul>
       </div> <!--/jumbotron-->
       <hr>
-      <p class="lead text-center">Really what is XXXXXXXXXXXXXXXXXXXXXXXXXXX???</p>
-      <p>Here actually explain your technology... language, pros, cons, stuff</p>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean varius sapien ut lectus tempor tempus. Quisque ac tempus arcu, eu cursus nunc. Suspendisse sed velit sed libero scelerisque scelerisque. Etiam vitae mi vulputate, vehicula nibh et, sagittis nibh. Aliquam scelerisque enim non tristique sodales. Pellentesque vestibulum felis sit amet eros accumsan, vel vestibulum felis vulputate. Vestibulum et lectus est. Integer tristique ac lectus sed mattis.</p>
+      <p class="lead text-centered">What is Scrapy?</p>
+      <p>Scrapy is a full framework for extracting and processing information from websites. It is written in Python and can be run via its command-line tool.</p>
+      <p>If you need to go through hundreds of pages and download massive amounts of data, then Scrapy is a great option. Scrapy allows you to crawl websites, select the information you want to extract, and store it into organized items. Before we get into any coding examples, let's walk through the basic process and define some key terms.</p>
+	  <p>First you must create a <b>spider</b>, which will crawl the web for you to collect information. It starts from a list of urls and follows links based on how you define its functions. You can also tell it how to parse the information it finds using <b>selectors</b>. Then the data is stored into <b>items</b>, which contain user-defined fields to hold information from each webpage like titles, links, descriptions, and so on. Once you've created your components, you can start your spider crawling by using the Scrapy command line tool.</p>
+	  <p>Now that we understand the basic structure, let's move on to the demo.</p>
       <hr>
       <div class="panel panel-default">
         <div class="panel-heading">
-          <h3 class="panel-title">Deemo... I mean demo</h3>
+          <h3 class="panel-title">Demo</h3>
         </div> <!--/panel head-->
         <div class="panel-body">
+		<p>This demo assumes Python is already installed on your computer. If it isn't you can download it <a href="https://www.python.org/downloads/">here.</a></p>
+		<p>Scrapy can be downloaded <a href="http://scrapy.org/download/">here</a>, and can be installed by running:
+		<pre>
+pip install Scrapy
+		</pre>
+		<p>Now that we have everything installed, lets create our first Scrapy project. Go to directory where you want your project and run the following command in the command line.<p>
+		<pre>
+scrapy startproject myProjectName
+		</pre>
+		<p>This will set up the directory structure for you. It includes (among other things): 
+		<ul><li>items.py, where you'll define your Item fields</li>
+		<li>spiders/, which is a folder to hold you spider.py files</li></ul>
+		</p>
+		<p>Let's start by defining our simplest object, our Item, by editing the items.py file. Here is some sample code for how to define your fields.</p>
           <pre>
-I am line 1
-  Deemo goes here
-    Super important note for html scrubs you must escape your angle brackets (&lt; and &gt;) using those two tags i just ussed in the source
-I am last line
+import scrapy
+
+class MyFirstItem(scrapy.Item):
+    title = scrapy.Field()
+    link = scrapy.Field()
+    desc = scrapy.Field()
           </pre>
+		<p>Now we can create a spider to do our web scraping. In your spiders folder, create a new python file to hold your spider, for example my_spider.py, and fill it in with code to define your domain, starting urls, and parse method.</p>
+		<pre>
+import scrapy
+
+class MySpider(scrapy.Spider):
+    name = "creepyCrawlySpider"
+    allowed_domains = ["https://cse.osu.edu/"]
+    start_urls = [
+        "https://cse.osu.edu/about-us/faculty",
+        "https://cse.osu.edu/about-us/researchers"
+    ]
+
+    def parse(self, response):
+        filename = response.url.split("/")[-2] + '.html'
+        with open(filename, 'wb') as f:
+            f.write(response.body)
+			</pre>
+			<p>This spider simply goes to the two start urls, and creates an html file for each of them. You can run it by going to your project's root directory and running:
+			<pre>
+scrapy crawl creepyCrawlySpider
+			</pre>
+			<p>Notice that you call it using the name you defined in your code, because of this the names of your spiders must be unique from one another. When you run your spider, a scrapy.Request object is created for each of your starting urls and the response is run through your parse method.</p>
+			<p>This spider isn't very interesting because it's just extracting all the  information on the page. It's much more useful to parse this data and organize it into an item. To do this we need to use selectors.</p>
+			<p>Selectors represent nodes in the HTML document structure. They can access the data inside the nodes, as well as their child nodes. There are four basic functions: 
+			<ul><li>xpath(), which returns a list of all child selectors that are selected by the xpath argument (If you've never used xpath expressions before, you can find a quick tutorial <a href="http://www.w3schools.com/xsl/xpath_syntax.asp">here</a>)</li>
+			<li>css(), which returns a list of all child selectors that are selected by the css argument</li>
+			<li>extract(), which returns a string of the selected data</li>
+			<li>re(), which returns a list of strings in the data that are selected by the regular expression argument</li>
+			Below is an example of how selectors can be used in your spider's parse function.</p>
+			<pre>
+def parse(self, response):
+        for sel in response.xpath('//ul/li'):
+            title = sel.xpath('a/text()').extract()
+            link = sel.xpath('a/@href').extract()
+            print title, link
+			</pre>
+			Now we can get specific information from the webpage. The next step is to start following links to find new pages. You can do this by creating new scrapy.Request objects within the parse function.
+			<pre>
+def parse(self, response):
+        for href in response.css("ul.directory.dir-col > li > a::attr('href')"):
+            url = response.urljoin(href.extract())
+            yield scrapy.Request(url, callback=self.parse)
+			</pre>
+			Notice that we use the urljoin function to make sure that we don't end up with a relative link. Also notice that we call the parse function as our callback, but we could also define a new function to parse these new links in a different way.</p>
+			<p>In this tutorial we've learned how to create a new Scrapy project, how to define items, how to define spiders, and how to use selectors. You can use these components to crawl websites, extract and parse data, and how to store it into organized items or output it to a file.</p>
         </div> <!--/panel body-->
       </div> <!--/panel-->
       <hr>
       <p class="lead">References</p>
       <dl class="dl-horizontal">
-        <dt><a href="#">coolpics</a></dt>
-        <dd>best website for finding cool pics</dd>
-        <dt><a href="#">animeshow</a></dt>
-        <dd>the one and only site for watching anime online.... except the million other sites</dd>
-        <dt><a href="#">May 2016</a></dt>
-        <dd>the month we graduate. but really should probably be your 3rd reference or w/e</dd>
+	    <dt><a href="https://github.com/scrapy/scrapy">Scrapy Github</a></dt>
+        <dd>Open source Github repo for Scrapy</dd>
+        <dt><a href="http://scrapy.org/">Scrapy Homepage</a></dt>
+        <dd>Access to documentation and FAQ</dd>
+		<dt><a href="https://github.com/scrapy/scrapy/wiki">Scrapy Wiki</a></dt>
+        <dd>Links to articles, slides, and more about Scrapy.</dd>
+        <dt><a href="https://www.python.org/">Python Homepage</a></dt>
+        <dd>Information on downloading and installing python</dd>
       </dlv>
     </div> <!--/container-->
 <!--YOU PUT YOUR STUFF ABOVE HERE-->

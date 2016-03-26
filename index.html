@@ -3,12 +3,15 @@
   <head>
     <meta charset="utf-8">
     <title>Web Scraping</title>
-    <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-      body {
-        padding-top: 80px;
-      }
-    </style>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/stylesheets/style.css">
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script><!-- load jquery -->
+    <script src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-1.2.5.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
   </head>
 
   <body>
@@ -18,19 +21,16 @@
         <div class="navbar-header">
           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
             <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
           </button>
           <a class="navbar-brand" href="#">Web Scraping</a>
         </div> <!--/navbarheader-->
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
             <li class="active"><a href="#">Home</a></li>
+            <li><a href="cheerio.html">Cheerio</a></li>
+            <li><a href="nokogiri.html">Nokogiri</a></li>
             <li><a href="scrapy.html">Scrapy</a></li>
             <li><a href="urllib.html">Urllib2</a></li>
-            <li><a href="nokogiri.html">Nokogiri</a></li>
-            <li><a href="cheerio.html">Cheerio</a></li>
           </ul>
         </div> <!--/.nav-collapse -->
       </div> <!--/container-->
@@ -38,7 +38,7 @@
 
     <div class="container">
       <div class="jumbotron">
-        <h1>Web Scraping</h1>
+        <h1 class="text-center">Web Scraping</h1>
         <h3>What: Extracting information from websites</h3>
         <h3>Why: Find and format large amounts of data quickly</h3>
         <h3>How: Many different platforms...</h3>
@@ -68,7 +68,5 @@
       <p>here talk about the dangers of webscrape</p>
       <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean varius sapien ut lectus tempor tempus. Quisque ac tempus arcu, eu cursus nunc. Suspendisse sed velit sed libero scelerisque scelerisque. Etiam vitae mi vulputate, vehicula nibh et, sagittis nibh. Aliquam scelerisque enim non tristique sodales. Pellentesque vestibulum felis sit amet eros accumsan, vel vestibulum felis vulputate. Vestibulum et lectus est. Integer tristique ac lectus sed mattis.</p>
     </div> <!--/container-->
-    <script src="bower_components/jquery/dist/jquery.js"></script>
-    <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
   </body>
 </html>

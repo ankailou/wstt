@@ -3,26 +3,15 @@
   <head>
     <meta charset="utf-8">
     <title>Web Scraping</title>
-    <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-      body {
-        padding-top: 80px;
-      }
-      .custom-bullet li {
-          display: block;
-          font-size: 25px;
-      }
-      .custom-bullet li:before {
-          /*Using a Bootstrap glyphicon as the bullet point*/
-          content: "\e007";
-          font-family: 'Glyphicons Halflings';
-          font-size: 25px;
-          /*float: left;*/
-          margin-top: 5px;
-          margin-left: -5px;
-          color: #101010;
-      }
-    </style>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/stylesheets/style.css">
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script><!-- load jquery -->
+    <script src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-1.2.5.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
   </head>
 
   <body>
@@ -32,34 +21,29 @@
         <div class="navbar-header">
           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
             <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
           </button>
           <a class="navbar-brand" href="index.html">Web Scraping</a>
         </div> <!--/navbarheader-->
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
             <li><a href="index.html">Home</a></li>
+            <li><a href="cheerio.html">Cheerio</a></li>
+            <li class="active"><a href="#">Nokogiri</a></li>
             <li><a href="scrapy.html">Scrapy</a></li>
             <li><a href="urllib.html">Urllib2</a></li>
-            <li class="active"><a href="#">Nokogiri</a></li>
-            <li><a href="cheerio.html">Cheerio</a></li>
           </ul>
         </div> <!--/.nav-collapse -->
       </div> <!--/container-->
     </nav> <!--/navbar-->
 
-<!--YOU PUT YOUR STUFF BELOW HERE-->
-<!--NO SRS READ THE COMMENT, NO NEED TO TOUCH ANYWHERE ELSE-->
-<!--unless ofcourse you can make the site not look like shit, then be my guest-->
     <div class="container">
       <div class="jumbotron">
-        <h1 class="text-center">PUT YOUR TECHNOLOGY NAME HERE</h1>
+        <h1 class="text-center">Nokogiri</h1>
         <ul class="custom-bullet">
           <li>cool thing 1</li>
           <li>cool thing 2</li>
           <li>yea idk dont have to have 3 things</li>
+        </ul>
       </div> <!--/jumbotron-->
       <hr>
       <p class="lead text-center">Really what is XXXXXXXXXXXXXXXXXXXXXXXXXXX???</p>
@@ -88,12 +72,7 @@ I am last line
         <dd>the one and only site for watching anime online.... except the million other sites</dd>
         <dt><a href="#">May 2016</a></dt>
         <dd>the month we graduate. but really should probably be your 3rd reference or w/e</dd>
-      </dlv>
+      </dl>
     </div> <!--/container-->
-<!--YOU PUT YOUR STUFF ABOVE HERE-->
-<!--no srs stop coding you did it... ur you done... gj now email this back to me-->
-    
-    <script src="bower_components/jquery/dist/jquery.js"></script>
-    <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
   </body>
 </html>

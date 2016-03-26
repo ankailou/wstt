@@ -1,0 +1,19 @@
+body {
+  padding-top: 50px;
+}
+
+.custom-bullet li, .custom-bullet li:before {
+  font-size: 25px;
+}
+
+.custom-bullet li {
+  display: block;
+}
+
+.custom-bullet li:before {
+  content: "\e007";
+  font-family: "Glyphicons Halfings";
+  margin-top: 5px;
+  margin-left: -5px;
+  color: #222222;
+}

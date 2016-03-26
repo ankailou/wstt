@@ -40,38 +40,221 @@
       <div class="jumbotron">
         <h1 class="text-center">Nokogiri</h1>
         <ul class="custom-bullet">
-          <li>cool thing 1</li>
-          <li>cool thing 2</li>
-          <li>yea idk dont have to have 3 things</li>
+          <li>Built on Ruby</li>
+          <li>Github forum for Issues</li>
+          <li>Can use CSS or XML selectors</li>
         </ul>
       </div> <!--/jumbotron-->
       <hr>
-      <p class="lead text-center">Really what is XXXXXXXXXXXXXXXXXXXXXXXXXXX???</p>
-      <p>Here actually explain your technology... language, pros, cons, stuff</p>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean varius sapien ut lectus tempor tempus. Quisque ac tempus arcu, eu cursus nunc. Suspendisse sed velit sed libero scelerisque scelerisque. Etiam vitae mi vulputate, vehicula nibh et, sagittis nibh. Aliquam scelerisque enim non tristique sodales. Pellentesque vestibulum felis sit amet eros accumsan, vel vestibulum felis vulputate. Vestibulum et lectus est. Integer tristique ac lectus sed mattis.</p>
+      <p class="lead text-center">What is Nokogiri?</p>
+      <p>Nokogiri is a Ruby gem that allows both for both webscraping to gather data and change elements of a page.</p>
+      <p>Great for quick selection of elemets using CSS or XML tags, Nokogiri has an easy to learn syntax that allows for flexibility and versitility.</p>
+      <p>Like most webscaping technologies, Nokogiri allows for the collection of data from a page with options such as spaces or error flags.  The elements that are returned are formatted using a node set (which is similar to an array), or simply a single element can be returned.</p>
+      <p>Nokogiri also has the added bonus of being able to modify elements of a page through moving nodes, changing attributes, and changing content.  It can also automatically fix errors, such as missing end tags.
+
       <hr>
+
+      <a href="#install">Installing Nokogiri</a><br>
+      <a href="#parse">Parsing a document with Nokogiri</a><br>
+      <a href="#modify">Modifying a document with Nokogiri</a><br>
+      <a href="#check">Checking accuracy of a document with Nokogiri</a><br>
+
+
+      <hr id="install">
+      
       <div class="panel panel-default">
         <div class="panel-heading">
-          <h3 class="panel-title">Deemo... I mean demo</h3>
+          <h3 class="panel-title">Installing Nokogiri</h3>
         </div> <!--/panel head-->
         <div class="panel-body">
+          <p>To begin, Nokogiri needs to be installed on your computer.  The files can be downloaded <a href="http://www.nokogiri.org/tutorials/installing_nokogiri.html">here.</a></p>
           <pre>
-I am line 1
-  Deemo goes here
-    Super important note for html scrubs you must escape your angle brackets (&lt; and &gt;) using those two tags i just ussed in the source
-I am last line
+gem install nokogiri
           </pre>
         </div> <!--/panel body-->
       </div> <!--/panel-->
       <hr>
-      <p class="lead">References</p>
+      <p>This method should work for most operating systems.  For troubleshooting, please visit <a href="http://www.nokogiri.org/tutorials/installing_nokogiri.html">here.</a></p>
+
+      <hr id="parse">
+      
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">Parsing an HTML or XML document</h3>
+        </div> <!--/panel head-->
+        <div class="panel-body">
+          <p>Every document should begin with these requirements:</p>
+          <pre>
+require 'rubygems'
+require 'nokogiri'
+require 'open-uri'
+          </pre>
+          <p>Telling Nokogiri how to open the document is easy, just pick HTML or XML and the file name.  For webpages, choose the URL instead!</p>
+          <pre>
+page = Nokogiri::HTML(open("index.html"))   
+page = Nokogiri::XML(open("index.html"))   
+
+page = Nokogiri::HTML(open("http://en.wikipedia.org/"))   
+page = Nokogiri::XML(open("http://en.wikipedia.org/"))   
+          </pre>
+          <p>Parsing an HTML document with CSS selectors is easy... Here is a sample HTML document:
+          <pre>
+&lthtml&gt
+  &ltbody&gt
+    &lth2&gtUnordered List with Default Bullets&lt/h2%gt
+      &ltul&gt
+        &ltli&gtCoffee&lt/li&gt
+        &ltli&gtTea&lt/li&gt
+        &ltli&gtMilk&lt/li&gt
+        &ltli&gt&lta href="http://reddit.com"&gtReddit&lt/a&gt&lt/li&gt
+      &lt/ul&gt  
+  &lt/body&gt
+&lt/html&gt
+          </pre>
+          <p>Getting the word "coffee" would only require one additonal line of code:</p>
+          <pre>
+result = page.css('li')[0].text
+          </pre>
+          <p>See, it's easy!  Getting the URL for Reddit is also easy:</p>
+          <pre>
+result = page.css('li')[3]['href']
+          </pre>
+          <p>You want all of the li elements? Simple:</p>
+          <pre>
+result = page.css('li')
+          </pre>
+          <p>Now you want to know how to print it out? Like this:</p>
+          <pre>
+puts result[0].text
+          </pre>
+          <p>Want a single node returned rather than an array? (Returns the first tag that matches)</p>
+          <pre>
+page.at_css("ul li")
+          </pre>
+          <p>Want some of the harder, more advanced things you can do? Here:</p>
+          <pre>
+Look up using attribute values -> news_links = page.css("a[data-category=news]")
+
+Same thing using "select" -> news_links = page.css("a").select{|link| link['data-category'] == "news"}
+
+Use multipe CSS selectors, id's and a function to print them out ->
+page.css('div#content div#bodyContent table.infobox tr th').each do |x|
+   puts x.text
+          </pre>
+          <p>Want to remove all tags without content or error messages?</p>
+          <pre>
+NOBLANKS - Remove blank nodes
+NOENT - Substitute entities
+NOERROR - Suppress error reports
+STRICT - Strict parsing; raise an error when parsing malformed documents
+NONET - Prevent any network connections during parsing. Recommended for parsing untrusted documents.
+
+page = Nokogiri::XML(File.open("index.html")) do |config|
+  config.strict.nonet
+          </pre>
+        </div> <!--/panel body-->
+      </div> <!--/panel-->
+     
+      <hr id="modify">
+
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">Modyifying a document using Nokogiri</h3>
+        </div> <!--/panel head-->
+        <div class="panel-body">
+          <p>Let's use this HTML code to demonstrate:</p>
+          <pre>
+&lthtml&gt
+  &ltbody&gt
+    &lth2&gtHeader Item&lt/h2&gt
+    &ltdiv&gtDiv Item&lt/div&gt
+  &lt/body&gt
+&lt/html&gt          
+          </pre>
+          <p>Using Nokogiri, node parents can be set to change the position of an element:</p>
+          <pre>
+h2  = page.at_css "h2"
+div = page.at_css "div"
+h2.parent = div       
+
+Resulting in:
+&lthtml&gt
+  &ltbody&gt
+    &ltdiv&gtDiv Item&lth2&gtHeader Item&lt/h2&gt&lt/div&gt
+  &lt/body&gt
+&lt/html&gt          
+          </pre>
+          <p>Or you can set the next sibling to move the node differently:</p>
+          <pre>
+h2  = page.at_css "h2"
+div = page.at_css "div"
+div.add_next_sibling(h2)
+
+Resulting in:
+&lthtml&gt
+  &ltbody&gt
+    &ltdiv&gtDiv Item&lt/div&gt
+    &lth2&gtHeader Item&lt/h2&gt
+  &lt/body&gt
+&lt/html&gt          
+          </pre>
+          <p>Nokogiri can also change the text of an element:</p>
+          <pre>
+h2  = page.at_css "h2"
+h2.content = "I am the new header!"
+
+Resulting in:
+&lthtml&gt
+  &ltbody&gt
+    &lth2&gtI am the new header!&lt/h2&gt
+    &ltdiv&gtDiv Item&lt/div&gt
+  &lt/body&gt
+&lt/html&gt         
+          </pre>
+        </div> <!--/panel body-->
+      </div> <!--/panel-->
+      
+      <hr id="check">
+      
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">Checking and Fixing Accuracy</h3>
+        </div> <!--/panel head-->
+        <div class="panel-body">
+          <p>A poorly formed HTML document can be fixed automatically using Nokogiri:</p>
+          <pre>
+Poorly formed document (missing the end body tag) :
+&lthtml&gt
+  &ltbody&gt
+    &lth2&gtItem&lt/h2&gt
+
+&lt/html&gt   
+          </pre>
+          <p>Simply by opening the document in Nokogiri, the document will be corrected:</p>
+          <pre>
+page = Nokogiri::HTML(open("bad.html"))   
+
+Printing the document now will result in:
+&lthtml&gt
+  &ltbody&gt
+    &lth2&gtItem&lt/h2&gt
+  &lt/body&gt
+&lt/html&gt          
+          </pre>
+        </div> <!--/panel body-->
+      </div> <!--/panel-->
+      <hr>
+      <p>This method should work for most operating systems.  For troubleshooting, please visit <a href="http://www.nokogiri.org/tutorials/installing_nokogiri.html">here.</a></p>
+
+
+      <p class="lead" id="reference">References</p>
       <dl class="dl-horizontal">
-        <dt><a href="#">coolpics</a></dt>
-        <dd>best website for finding cool pics</dd>
-        <dt><a href="#">animeshow</a></dt>
-        <dd>the one and only site for watching anime online.... except the million other sites</dd>
-        <dt><a href="#">May 2016</a></dt>
-        <dd>the month we graduate. but really should probably be your 3rd reference or w/e</dd>
+        <dt><a href="http://www.nokogiri.org/">Nokogiri</a></dt>
+        <dd>Main site for information</dd>
+        <dt><a href="http://ruby.bastardsbook.com/chapters/html-parsing/">Tutorial</a></dt>
+        <dd>Site explaining many different aspects</dd>
+        <dt><a href="#]https://github.com/sparklemotion/nokogiri">Github</a></dt>
+        <dd>Source for Nokogiri code</dd>
       </dl>
     </div> <!--/container-->
   </body>

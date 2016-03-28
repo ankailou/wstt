@@ -44,29 +44,36 @@
         <h3>How: Many different platforms...</h3>
       </div> <!--/jumbotron-->
       <hr>
-      <p class="lead">Really what is webscrape???</p>
-      <p>Here actually explain webscrape what + why</p>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean varius sapien ut lectus tempor tempus. Quisque ac tempus arcu, eu cursus nunc. Suspendisse sed velit sed libero scelerisque scelerisque. Etiam vitae mi vulputate, vehicula nibh et, sagittis nibh. Aliquam scelerisque enim non tristique sodales. Pellentesque vestibulum felis sit amet eros accumsan, vel vestibulum felis vulputate. Vestibulum et lectus est. Integer tristique ac lectus sed mattis.</p>
+      <h2 class="text-center">What is Web Scraping?</h2>
+      <p>Web scraping is the act of retrieving data and other information from online webpages.  There are many different ways to do this;  From copy-pasting the data by hand, to requesting a professional web crawling comanpy to retrieve that data you need, to writing short scripts in your favorite language.  For as many ways as there are to retrieve the data, there is just as many reasons as to why you would want to web scrape.  Some applications of web scraping include: DBPedia- a free query-able database of wikipedia infoboxes, Price Comparison applications, Website Archiving, News Aggregation applications, and many more!</p>
+      <p>Below is a collection of introductions into writing a web scraping application in your chosen language.  You can find informatino about the library/module/package and the pros and cons of using said package.  These introductions also include a short demo and should set you up to writing your own web scraping application.</p>
       <hr>
-      <p class="lead">how can she scrape?</p>
-      <p class="lead">scrapy section</p>
-      <p>basic description of scrapy, can be same thing as from scrapy page</p>
-      <p class="lead">urllib section</p>
-      <p>basic description of urllib, can be same thing as from urllib page</p>
-      <p class="lead">Nokogiri section</p>
-      <p>basic description of Nokogiri, can be same thing as from Nokogiri page</p>
-      <p class="lead">Cheerio section</p>
-      <p>basic description of Cheerio, can be same thing as from Cheerio page</p>
+      <h2 class="text-center">Ways to Scrape</h2>
+      <h3>Cheerio</h3>
+      <p>A NodeJS server package that gives a light-weight and fast implementation of jQuery functionality on a static HTML page</p>
+      <h3>Nokogiri</h3>
+      <p>A Ruby gem that allows document search, collection, and revision using CSS selectors</p>
+      <h3>Scrapy</h3>
+      <p>A High level framework written in Python that provides a web crawling command line tool to provides easier access and extraction of information</p>
+      <h3>Urllib2+BeautifulSoup4</h3>
+      <p>A combination of two Python libraries used to request and open URLs and then provide an idiomatic parsing of the HTML</p>
       <div class="btn-group btn-group-justified" role="group" aria-label="...">
+        <a href="cheerio.html" class="btn btn-default" role="button">Cheerio</a>
+        <a href="nokogiri.html" class="btn btn-default" role="button">Nokogiri</a>
         <a href="scrapy.html" class="btn btn-default" role="button">Scrapy</a>
         <a href="urllib.html" class="btn btn-default" role="button">Urllib2</a>
-        <a href="nokogiri.html" class="btn btn-default" role="button">Nokogiri</a>
-        <a href="cheerio.html" class="btn btn-default" role="button">Cheerio</a>
       </div>
       <hr>
-      <p class="lead">DaNgErS oF WeBsCrApE</p>
-      <p>here talk about the dangers of webscrape</p>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean varius sapien ut lectus tempor tempus. Quisque ac tempus arcu, eu cursus nunc. Suspendisse sed velit sed libero scelerisque scelerisque. Etiam vitae mi vulputate, vehicula nibh et, sagittis nibh. Aliquam scelerisque enim non tristique sodales. Pellentesque vestibulum felis sit amet eros accumsan, vel vestibulum felis vulputate. Vestibulum et lectus est. Integer tristique ac lectus sed mattis.</p>
+      <h2 class="text-center">Issues Concerning Web Scraping</h2>
+      <p>While web scraping is widely used and provides an efficient way to collect important data, it resides in a somewhat grey area legally.  It is important to do the following before scraping a website:</p>
+      <ul>
+        <li>Check the website's terms of use</li>
+        <li>Do not scrape copyrighted content</li>
+        <li>Try not to burden the websites servers and services</li>
+        <li>Avoid scraping sensitive user information</li>
+      </ul>
+      <p>Following these guidelines will help to ensure that any web scraping application you make stays on the ethical high ground.  Another reason that web scraping is controversial is because of how applications can compete with the website that is scraped.  One example of this is a ticket pricing platform that aggregates all ticket prices from competing airlines.  This platform compares the prices and allows buying of tickets right through their platform.  This circumvents the airlines' websites and takes away from their user numbers.  It is important to keep the purpose of your application in mind and make sure to consider how it would affect the sites you scrape from.</p>
+      <p>Another important aspect of web scraping is the fact that it can be automated to an extent that it can greatly hinder websites' servers.  This automation has lead to large numbers of bots scraping information from many different sources.  In order to combat the wide-spread use of web scraping bots some websites have set up countermeasures that include: Blocking IPs, Traffic monitoring, Captcha requirements, and even data obfuscation.  When attempting to scrape information for yourself you may encounter some of these web scraping bot countermeasures.</p>
     </div> <!--/container-->
   </body>
 </html>

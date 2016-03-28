@@ -10,10 +10,11 @@ body {
   display: block;
 }
 
+
 .custom-bullet li:before {
-  content: "\e007";
+  /*content: "\e007";
   font-family: "Glyphicons Halfings";
-  margin-top: 5px;
+  */margin-top: 5px;
   margin-left: -5px;
   color: #222222;
 }

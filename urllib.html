@@ -40,44 +40,167 @@
       <div class="jumbotron">
         <h1 class="text-center">urllib2 &amp; beautifulsoup4</h1>
         <ul class="custom-bullet fa-ul">
-          <li><i class="fa-li fa fa-star"></i>cool thing 1</li>
-          <li><i class="fa-li fa fa-star"></i>cool thing 2</li>
-          <li><i class="fa-li fa fa-star"></i>yea idk dont have to have 3 things</li>
+          <li><i class="fa-li fa fa-star"></i>urllib2: library for HTTP request and opening URLs</li>
+          <li><i class="fa-li fa fa-star"></i>BeautifulSoup4: library for idiomatic parsing HTML/XML/etc</li>
+          <li><i class="fa-li fa fa-star"></i>Combination of the two provides simple and extensible web scraping</li>
         </ul>
       </div> <!--/jumbotron-->
       <hr>
-      <h2 class="text-center">Really what is XXXXXXXXXXXXXXXXXXXXXXXXXXX???</h2>
-      <p>Here actually explain your technology... language, pros, cons, stuff</p>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean varius sapien ut lectus tempor tempus. Quisque ac tempus arcu, eu cursus nunc. Suspendisse sed velit sed libero scelerisque scelerisque. Etiam vitae mi vulputate, vehicula nibh et, sagittis nibh. Aliquam scelerisque enim non tristique sodales. Pellentesque vestibulum felis sit amet eros accumsan, vel vestibulum felis vulputate. Vestibulum et lectus est. Integer tristique ac lectus sed mattis.</p>
+      <h2 class="text-center">What is urllib2?</h2>
+      <p>
+        urllib2 is a Python library built into the base installation of Python 2.6 and beyond.
+        urllib2 provides a simple API for generating HTTP requests and pulling site information from URLs.
+      </p>
+      <p>
+        urllib2 has built-in functionality for the various nuances of sending HTTP GET request, including:
+        errors (server or client), redirects, user authentication, captchas, proxy servers,
+        and various other roadblocks or caveat encountered when pulling information from URLs.
+        urllib2 also provides an extensive set of functionality for handling, digesting, or interacting with retrieved data - e.g.
+        getting or modifying DOM elements, retrieving verification details for the HTTP request, and caching extracted URL information.
+      </p>
+      <p>
+        Note that while urllib2 is a straightforward and robust solution to retrieving website HTML,
+        it lacks functionality for clean parsing of aforementioned HTML.
+      </p>
+      <h2 class="text-center">What is BeautifulSoup4?</h2>
+      <p>
+        BeautifulSoup4 is a Python library supported for Python 2.7 and Python 3.2.
+        The BeautifulSoup4 API provides extensible functionality for generating, navigating, searching, and modifying HTML parse tree.
+        BeautifulSoup4 supports integration of built-in and 3rd party HTML/XML parsers for preprocessing URL data.
+      </p>
+      <p>
+        Once raw HTML/XML is preprocessed by urllib2, some other library, or provided in local source files,
+        BeautifulSoup4 is an excellent library for extracting actionable content from the HTML in a maintainable manner.
+        BeautifulSoup4 begins by returning the root &lt;html&gt; node to a parse tree for the HTML document upon instantiation.
+        Given this parse tree object, bs4 provides deep functionality for navigating through descending through the tree by tag,
+        searching the DOM via css selectors, and modifying the actionable tag elements returned through navigation/search.
+        To illustrate idiomatic web scraping using BeautifulSoup4 and urllib2 - see demo below:
+      </p>
       <hr>
       <div class="panel panel-default">
         <div class="panel-heading">
-          <h3 class="panel-title">Deemo... I mean demo</h3>
+          <h3 class="panel-title">Demo</h3>
         </div> <!--/panel head-->
         <div class="panel-body">
+          <p>Integration of the urllib2 and BeautifulSoup4 librarie into your Python module requires Python version 2.7 or 3.2.</p>
+          <p>
+            urllib2 is pre-packaged with Python 2.6 and beyond. BeautifulSoup4 must be downloaded via the command:
+          </p>
           <pre>
-I am line 1
-  Deemo goes here
-    Super important note for html scrubs you must escape your angle brackets (&lt; and &gt;) using those two tags i just ussed in the source
-I am last line
+pip install bs4
           </pre>
+          <p>To include urllib2 and BeautifulSoup4 in an .py file, add these import statements to the source:</p>
+          <pre>
+import urllib2
+from bs4 import BeautifulSoup
+          </pre>
+          <p>
+            The simplest method to open a URL with urllib2 is with urllib2.urlopen():
+          </p>
+          <pre>
+urllib2.urlopen(url[, data[, timeout[, cafile[, capath[, cadefault[, context]]]]])
+          </pre>
+          <p> where the fields are specified in the documentation as such:</p>
+          <dl class="dl-horizontal">
+            <dt>url (required)</dt>
+            <dd>string or Request object representing target URL</dd>
+            <dt>data (optional)</dt>
+            <dd>string representing additional data to be sent to the server</dd>
+            <dt>timeout (optional)</dt>
+            <dd>int representing seconds until the request automatically times out</dd>
+            <dt>cafile (optional)</dt>
+            <dd>string representing file containing trusted CA certificates for HTTP requests</dd>
+            <dt>capath (optional)</dt>
+            <dd>string representing path to hashed directory of hashed trust certificate files</dd>
+            <dt>cadefault (optional):</dt>
+            <dd>ignored parameter</dd>
+            <dt>context (optional)</dt>
+            <dd>string specifying SSL options</dd>
+          </dl>
+          <p>For the sake of simplicity, only url is required for urllib2.urlopen() to function, e.g.:</p>
+          <pre>
+data = urllib2.urlopen('http://www.ign.com/games/the-legend-of-zelda/nes-5990')
+          </pre>
+          <p>The return value in <strong>data</strong> is an object representing the retrieved document that can be passed directly into BeautifulSoup4:</p>
+          <pre>
+soup = BeautifulSoup(data, 'html.parser')
+          </pre>
+          <p>
+            The return value in <strong>soup</strong> is the root node of a parse tree for the DOM of the HTML document retrieved in <strong>data</strong>.
+            Each node of the parse tree is a <em>bs4.tag</em> object.
+            Each <em>bs4.tag</em> object stores the id, classes, attributes, and inner text/html as fields of the object.
+            A parent tag in the DOM also contains a list field populated with child <em>bs4.tag</em> objects.
+          </p>
+          <p>The parse tree can be navigated from the topmost element by chaining together object field accesses as such:</p>
+          <pre>
+body = soup.body.contents                   // returns a list of bs4.tag elements in the body with inner text
+body_children = soup.body.children          // returns a list of children bs4.tag objects of the body tag
+body_descendants = soup.body.descendants    // returns a recursively generated list of all tags contained in body tag
+body_descendants = soup.body.descendants[5] // returns the 5th descendant of the body tag (if present)
+          </pre>
+          <p>
+            BeautifulSoup4 also provides navigation functionality for parent nodes and sequentially iterating sibling nodes.
+            For more information on the full feature set of navigation in BeautifulSoup4, refer to navigation section in the official
+            <a href="http://www.crummy.com/software/BeautifulSoup/bs4/doc/#navigating-the-tree">BeautifulSoup4</a>
+            Documentation.
+          </p>
+          <p>
+            Manual navigation in BeautifulSoup4 involves chaining attribute access from the root node and can get long,
+            lacks robustness, and leads to code that lacks maintainability and readability.
+            To mitigate this, the BeautifulSoup4 library also has built-in functionality for searching the parse tree for tags
+            matching specific type, attributes, or other properties of the tag object and
+            filtering selected tags.
+          </p>
+          <pre>
+links   = soup.find_all('a')                            // returns all &lt;a&gt; tags in the document
+style   = soup.find_all(["i", "b"])                     // find_all() also accepts list arguments
+by_id   = soup.find_all(id='main-header-nav')           // find_all() can also search by attribute
+all_ids = soup.find_all(id=True, href=True)             // search by presence of attributes w/ multiple attributes
+by_dict = soup.find_all(attrs={"data-foo": "value"})    // attributes can also be specified using dictionaries
+keyword = soup.find_all(string=re.compile("foobar"))    // find_all() can also search by keyword in the HTML text
+by_css  = soup.select('h1#main-header-nav ~ a.sublink') // select() function search by css selector
+          </pre>
+          <p>
+            Searching in BeautifulSoup provides are larger scope of return values and is much more flexible than
+            element-by-element navigation. Searching can used to narrow down selective section of the document by
+            a specific property (id, inner text, etc) or sweep the entire document for generic elements (e.g. urls, divs, etc).
+            For more information on the full feature set of searching in BeautifulSoup4, refer to search section in the official
+            <a href="http://www.crummy.com/software/BeautifulSoup/bs4/doc/#searching-the-tree">BeautifulSoup4</a> Documentation.
+          </p>
+
+          <p>
+            So far, navigation and searching with BeautifulSoup4 already contain a wealth of simple yet powerful functionality;
+            yet both navigation and search return static snippets of the DOM - sometimes this is not enough and further
+            sanitization of the scraped content is necessary. BeautifulSoup4 provides a DOM modification API to aid this necessity:
+          </p>
+          <pre>
+soup.head.title.string = "New Title"                              // change the inner text of an element
+soup.body.children[0].extract()                                   // remove the first child of the body tag
+soup.body.append(soup.new_tag("a", href="http://www.google.com")) // append a new link to the end of the body
+          </pre>
+          <p>
+            For more information on the full feature set of DOM modification in BeautifulSoup4, refer to modification section in the official
+            <a href="http://www.crummy.com/software/BeautifulSoup/bs4/doc/#modifying-the-tree">BeautifulSoup4</a> Documentation.
+          </p>
+          <p>
+            In conclusion, urllib2 and BeautifulSoup4 provide a large, fast, and powerful API for opening URLs,
+            scraping content, and pipelining the content into actionable data.
+          </p>
+
         </div> <!--/panel body-->
       </div> <!--/panel-->
       <hr>
       <p class="lead">References</p>
       <dl class="dl-horizontal">
-        <dt><a href="#">coolpics</a></dt>
-        <dd>best website for finding cool pics</dd>
-        <dt><a href="#">animeshow</a></dt>
-        <dd>the one and only site for watching anime online.... except the million other sites</dd>
-        <dt><a href="#">May 2016</a></dt>
-        <dd>the month we graduate. but really should probably be your 3rd reference or w/e</dd>
+        <dt><a href="https://docs.python.org/2/library/urllib2.html">urllib2 Documentation</a></dt>
+        <dd>Documentation and Examples for urllib2</dd>
+        <dt><a href="http://www.crummy.com/software/BeautifulSoup/bs4/doc/">bs4 Documentation</a></dt>
+        <dd>Documentation and Examples for BeautifulSoup4</dd>
+        <dt><a href="https://github.com/python-git/python/blob/master/Lib/urllib2.py">urllib2 Source Code</a></dt>
+        <dd>Source Code for urllib2 in the Python Github Repository</dd>
+        <dt><a href="https://code.launchpad.net/beautifulsoup">bs4 Source Code</a></dt>
+        <dd>Source Code Repository for BeautifulSoup4</dd>
       </dl>
     </div> <!--/container-->
-<!--YOU PUT YOUR STUFF ABOVE HERE-->
-<!--no srs stop coding you did it... ur you done... gj now email this back to me-->
-
-    <script src="bower_components/jquery/dist/jquery.js"></script>
-    <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
   </body>
 </html>
